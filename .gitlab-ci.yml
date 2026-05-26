@@ -1,0 +1,14 @@
+image: mcr.microsoft.com/playwright/python:v1.50.0-jammy
+
+stages:
+  - test
+
+smoke-tests:
+  stage: test
+  before_script:
+    - pip install -r requirements.txt
+  script:
+    - pytest tests/ -v
+  only:
+    - schedules
+    - main
