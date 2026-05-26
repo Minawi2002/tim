@@ -8,11 +8,14 @@ on:
 jobs:
   smoke-tests:
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright/python:v1.50.0-jammy
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
       - name: Install dependencies
         run: pip install -r requirements.txt
+      - name: Install Playwright browsers
+        run: playwright install chromium --with-deps
       - name: Run tests
         run: pytest tests/ -v
